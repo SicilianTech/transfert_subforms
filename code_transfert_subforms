@@ -1,0 +1,23 @@
+enqId = 3810366000011167001;
+enqData = zoho.crm.getRecordById("Enquiries", enqId);
+//info enqData;
+subForm = enqData.get("Incoming_Call_Register");
+info subForm;
+subList = list();
+for each rec in subForm
+{
+ mp = map();
+ sNo = rec.get("S_No");
+ cDate = rec.get("Call_Date");
+ reason = rec.get("Reason");
+ mp.put("S_No", sNo);
+ mp.put("Call_Date", cDate);
+ mp.put("Reason", reason);
+ subList.add(mp);
+}
+newSubMap = map();
+newSubMap.put("Incoming_Call_Log", subList);
+info newSubMap;
+patId = 3810366000011118045;
+updateRec = zoho.crm.updateRecord("Patients", patId, newSubMap);
+info updateRec;
